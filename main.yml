@@ -1,0 +1,16 @@
+---
+- name: Configure my Linux server
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Create appuser
+      user:
+        name: appuser
+        state: present
+
+    - name: Create application directory
+      file:
+        path: /opt/myapp
+        state: directory
+        owner: appuser
+        mode: '0755'

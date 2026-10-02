@@ -1,0 +1,34 @@
+- name: Configure my Linux server
+  hosts: web
+  become: yes
+
+  tasks:
+
+    - name: Create appuser
+      user:
+        name: appuser
+        uid: 1500
+        state: present
+
+    - name: Create application directory
+      file:
+        path: /opt/my_app
+        state: directory
+        mode: '0755'
+
+    - name: Install curl
+      dnf:
+        name: curl
+        state: present
+       
+
+    - name: Install Apache
+      dnf:
+        name: httpd
+        state: present
+
+    - name: Start Apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes 
